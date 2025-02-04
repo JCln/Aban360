@@ -1,7 +1,8 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Dashboard } from "../dashboard/dashboard";
+import { PrimeReactProvider } from 'primereact/api';
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
@@ -9,5 +10,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <PrimeReactProvider>
+      <Dashboard />
+    </PrimeReactProvider>
+  )
 }
