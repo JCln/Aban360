@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@import "prime.scss";
+
+@theme {
+    --font-sans: "Ravi", system-ui, sans-serif
+}
+
+@font-face {
+    font-family: 'Ravi' !important;
+    src: url('../fonts/Ravi-VF.woff2') format('woff2 supports variations'),
+        url('../fonts/RaviFaNum-VF.woff2') format('woff2-variations');
+}
+
+@layer base {
+    @font-face {
+        font-family: 'Ravi' !important;
+        src: url('../fonts/Ravi-VF.woff2') format('woff2 supports variations'),
+            url('../fonts/RaviFaNum-VF.woff2') format('woff2-variations');
+    }
+}
+
+:root {
+    --font-family: "Ravi" !important;
+
+    --clr-white: #FFFFFF;
+    --clr-white20: #FFFFFF33;
+    --clr-gray-1: #666666;
+    --clr-gray-3: #333333;
+    --clr-0: #DADDE833;
+    --clr-1: #E7ECFB;
+    --clr-2: #DADDE8CC;
+    --clr-3: #DADDE833;
+    --clr-4: #345ED4;
+
+
+    --border-2px: 2px;
+    --border-5px: 5px;
+    --border-10px: 10px;
+    --border-15px: 15px;
+    --border-20px: 20px;
+    --border-30px: 30px;
+    --border-80px: 80px;
+    --border-100vmax: 100vmax;
+    --border-50: 50%;
+
+    --size-3px: 3px;
+    --size-5px: 5px;
+    --size-8px: 8px;
+    --size-05rem: 0.5rem;
+    --size-10px: 10px;
+    --size-12px: 12px;
+    --size-14px: 14px;
+    --size-1rem: 1rem;
+    --size-1-2rem: 1.2rem;
+    --size-1-3rem: 1.3rem;
+    --size-1-4rem: 1.4rem;
+    --size-1-5rem: 1.5rem;
+    --size-1-6rem: 1.6rem;
+    --size-2rem: 2rem;
+    --size-3rem: 3rem;
+    --size-7rem: 7rem;
+    --size-8rem: 8rem;
+    --size-10rem: 10rem;
+    --size-12rem: 12rem;
+    --size-15rem: 15rem;
+}
+
+html,
+body {
+    box-sizing: border-box;
+    @apply bg-white dark:bg-gray-950;
+
+    @media (prefers-color-scheme: dark) {
+        color-scheme: dark;
+    }
+
+    margin: 0;
+    height: 100%;
+    font-family: "Ravi" !important;
+    background: var(--clr-0);
+}
+
+.bg-clr-0 {
+    background: var(--clr-0);
+}
+
+.bg-clr-1 {
+    background: var(--clr-1);
+}
+
+.bg-clr-2 {
+    background: var(--clr-2);
+}
+
+.bg-clr-3 {
+    background: var(--clr-3);
+}
+
+.clr-0 {
+    color: var(--clr-0);
+}
+
+.clr-1 {
+    color: var(--clr-1);
+}
+
+.clr-2 {
+    color: var(--clr-2);
+}
+
+.clr-3 {
+    color: var(--clr-3);
+}
+
+.color-gray-1 {
+    color: var(--clr-gray-1);
+}
+
+.color-gray-3 {
+    color: var(--clr-gray-3);
+}
