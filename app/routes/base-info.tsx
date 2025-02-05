@@ -3,7 +3,7 @@ import { Accordion, AccordionTab } from 'primereact/accordion';
 
 export default function BaseInfo() {
     return (
-        <div className='m-8'>
+        <div className=''>
             <Accordion multiple activeIndex={[0, 1]} expandIcon="pi pi-angle-double-down" collapseIcon="pi pi-angle-double-up">
                 <AccordionTab header=" ">
                     <div className='flex'>
