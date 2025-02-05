@@ -1,10 +1,9 @@
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+import Header from "~/routes/header";
 
 export function Dashboard() {
   return (
-    <h1>
-      Hi again
-    </h1>
+    <>
+      <Header></Header>
+    </>
   );
 }
