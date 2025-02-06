@@ -1,9 +1,6 @@
 @import "tailwindcss";
 @import "prime.scss";
-
-@theme {
-    --font-sans: "Ravi", system-ui, sans-serif
-}
+@import "base-info.scss";
 
 @font-face {
     font-family: 'Ravi' !important;
@@ -24,8 +21,12 @@
 
     --clr-white: #FFFFFF;
     --clr-white20: #FFFFFF33;
+    --clr-gray-0: #D9D9D94D;
+    --clr-gray-4: #D9D9D9;
+    --clr-gray-2: #8B8B8B;
     --clr-gray-1: #666666;
     --clr-gray-3: #333333;
+    --clr-gray-5: #444444;
     --clr-0: #DADDE833;
     --clr-1: #E7ECFB;
     --clr-2: #DADDE8CC;
@@ -112,10 +113,42 @@ body {
     color: var(--clr-3);
 }
 
-.color-gray-1 {
+.clr-gray-0 {
+    color: var(--clr-gray-0);
+}
+
+.bg-clr-gray-0 {
+    background: var(--clr-gray-0);
+}
+
+.clr-gray-1 {
     color: var(--clr-gray-1);
 }
 
-.color-gray-3 {
+.clr-gray-3 {
     color: var(--clr-gray-3);
+}
+
+.clr-gray-2 {
+    color: var(--clr-gray-2);
+}
+
+.bg-clr-gray-2 {
+    background: var(--clr-gray-2);
+}
+
+.clr-gray-4 {
+    color: var(--clr-gray-4);
+}
+
+.bg-clr-gray-4 {
+    background: var(--clr-gray-4);
+}
+
+.clr-gray-5 {
+    color: var(--clr-gray-5);
+}
+
+.bg-clr-gray-5 {
+    background: var(--clr-gray-5);
 }
