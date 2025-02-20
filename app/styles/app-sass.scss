@@ -4,17 +4,21 @@
 
 @font-face {
     font-family: 'Ravi' !important;
-    src: url('../fonts/Ravi-VF.woff2') format('woff2 supports variations'),
-        url('../fonts/RaviFaNum-VF.woff2') format('woff2-variations');
+    src: url('../../public/fonts/Ravi-VF.woff2') format('woff2'),
+        url('../../public/fonts/RaviFaNum-VF.woff2') format('woff2');
 }
 
-@layer base {
-    @font-face {
-        font-family: 'Ravi' !important;
-        src: url('../fonts/Ravi-VF.woff2') format('woff2 supports variations'),
-            url('../fonts/RaviFaNum-VF.woff2') format('woff2-variations');
-    }
+@theme {
+    --font-display: 'Ravi' !important;
 }
+
+// @layer base {
+//     @font-face {
+//         font-family: 'Ravi' !important;
+//         src: url('../fonts/Ravi-VF.woff2') format('woff2 supports variations'),
+//             url('../fonts/RaviFaNum-VF.woff2') format('woff2-variations');
+//     }
+// }
 
 :root {
     --font-family: "Ravi" !important;
@@ -69,10 +73,11 @@
 html,
 body {
     box-sizing: border-box;
+    font-display: 'Ravi';
     @apply bg-white dark:bg-gray-950;
 
-    @media (prefers-color-scheme: dark) {
-        color-scheme: dark;
+    @media (prefers-color-scheme: light) {
+        color-scheme: light;
     }
 
     margin: 0;
