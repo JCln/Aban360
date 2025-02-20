@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "IranNastaliq";
+  src: url("../fonts/IranNastaliq/IranNastaliq.ttf") format("truetype");
+  font-weight: 400;
+  /* Normal weight */
+  font-style: normal;
+  /* Normal style */
+}
+
+@font-face {
+  font-family: "RaviRegular";
+  src: url("../fonts/Ravi/Ravi-Regular.woff") format("woff");
+  font-weight: 400;
+  /* Normal weight */
+  font-style: normal;
+  /* Normal style */
+}
+
+@font-face {
+  font-family: "RaviNumRegular";
+  src: url("../fonts/Ravi/RaviFaNum/RaviFaNum-Regular.woff2") format("woff");
+  font-weight: 400;
+  /* Normal weight */
+  font-style: normal;
+  /* Normal style */
+}
