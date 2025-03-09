@@ -21,14 +21,21 @@ export const USERNAME = (width: number): GridColDef => ({
     headerAlign: "center", sortable: true
 })
 export const NAME = (width: number): GridColDef => ({ field: 'name', headerName: 'نام', width: width, align: "center", headerAlign: "center", sortable: true })
+export const FULLNAME = (width: number): GridColDef => ({ field: 'fullName', headerName: 'نام و نام خانوادگی', width: width, align: "center", headerAlign: "center", sortable: true })
+export const FATHERNAME = (width: number): GridColDef => ({ field: 'fatherName', headerName: "نام پدر", width: width, align: "center", headerAlign: "center", sortable: true })
+export const X = (width: number): GridColDef => ({ field: 'x', headerName: " ", width: width, align: "center", headerAlign: "center", sortable: true })
+export const Y = (width: number): GridColDef => ({ field: 'y', headerName: "", width: width, align: "center", headerAlign: "center", sortable: true })
 export const TITLE = (width: number): GridColDef => ({ field: 'title', headerName: 'عنوان', width: width, align: "center", headerAlign: "center", sortable: true })
 export const STYLE = (width: number): GridColDef => ({ field: 'style', headerName: 'استایل', width: width, align: "center", headerAlign: "center", sortable: true })
 export const ARROW = (width: number): GridColDef => ({ field: 'arrow', headerName: 'جهت', width: width, align: "center", headerAlign: "center", sortable: true })
+
 export const EMAIL = (width: number): GridColDef => ({ field: 'email', headerName: 'ایمیل', width: width, align: "center", headerAlign: "center", sortable: true })
 export const SEQUENCE = (width: number): GridColDef => ({ field: 'sequence', headerName: 'تریتب', width: width, align: "center", headerAlign: "center", sortable: true })
 
 export const LOGICORDER = (width: number): GridColDef => ({ field: 'logicalOrder', headerName: 'ترتیب', width: width, align: "center", headerAlign: "center", sortable: true })
+export const DESCRIPTION = (width: number): GridColDef => ({ field: 'description', headerName: 'توضیحات', width: width, align: "center", headerAlign: "center", sortable: true })
 export const SIDEBAR = (width: number): GridColDef => ({
+
     field: 'sidebar', headerName: 'ساید بار',
     width: width, align: "center", headerAlign: "center", sortable: true,
     renderCell: (cellValue) => {

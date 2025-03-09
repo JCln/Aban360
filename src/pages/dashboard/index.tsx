@@ -1,6 +1,5 @@
 import DefaultLayout from "../../components/Layouts/DefaultLayout";
 const Page = () => {
-
   return (
     <DefaultLayout>
       <div className="dashboard-page container mx-auto">

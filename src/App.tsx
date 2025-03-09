@@ -8,6 +8,11 @@ import { Routes, Route } from "react-router-dom";
 import Signin from './pages/signin'
 import Dashboard from './pages/dashboard'
 import Summary from './pages/Summary'
+import Kardex from './pages/Kardex'
+import Bills from './pages/Bills'
+import CreateSubscription from './pages/Subscription/create'
+import LastBill from './pages/Bills/last'
+
 import UserCreate from './pages/users/create'
 import UserEdit from './pages/users/edit'
 import UserManagement from './pages/management/users'
@@ -28,6 +33,11 @@ import TestTarifManagement from './pages/management/tarifs/test'
 import PermissionsManagement from './pages/management/permissions'
 import EditGroupUsers from './pages/users/edit-group'
 import CreateGroupUsers from './pages/users/create-group'
+import Logs from './pages/Logs'
+import Services from './pages/Services'
+import Invoice from './pages/Invoice'
+import Archive from './pages/Archive'
+import Reading from './pages/management/reading'
 
 import { AuthProvider } from './hooks/AuthContext';
 import { ToastContainer } from 'react-toastify';
@@ -40,12 +50,20 @@ function App() {
   return (
     <div className="App" dir='rtl'>
       <QueryClientProvider client={queryClient}>
-
         <AuthProvider>
           <Routes>
             <Route path="/" element={<Signin />} />
             <Route path={path.dashboard} element={<Dashboard />} />
             <Route path={path.summary} element={<Summary />} />
+            <Route path={path.kardex} element={<Kardex />} />
+            <Route path={path.bills} element={<Bills />} />
+            <Route path={path.services} element={<Services />} />
+            <Route path={path.invoice} element={<Invoice />} />
+            <Route path={path.lastBill} element={<LastBill />} />
+            <Route path={path.logs} element={<Logs />} />
+            <Route path={path.archive} element={<Archive />} />
+            <Route path={path.readingManagement} element={<Reading />} />
+            <Route path={path.createSubscription} element={<CreateSubscription />} />
 
             {/* management */}
             <Route path={path.management} element={<Management />} />

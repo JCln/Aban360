@@ -2,6 +2,16 @@ export const path = {
   login: "/login",
   summary: "/summary",
   dashboard: "/dashboard",
+  kardex: "/kardex",
+  bills: "/bills",
+  lastBill: "/last-bill",
+
+  createSubscription: "/subscription/create",
+
+  logs: "/logs",
+  services: "/services",
+  invoice: "/invoice",
+  archive: "/archive",
 
   management: "/management",
   basicManagement: "/management/basic",
@@ -10,11 +20,11 @@ export const path = {
   messagesManagement: "/management/messages",
   userManagement: "/management/user",
   permissionsManagement: "/management/permissoions",
-  propertyManagement:"/management/property",
-  meterManagement:"/management/meter",
-  peopleManagement:"/management/peolple",
+  propertyManagement: "/management/property",
+  meterManagement: "/management/meter",
+  peopleManagement: "/management/peolple",
   siphonManagement: "/management/siphone",
-
+  readingManagement: "/management/reading",
 
   //captcha
   captchaManagement: "/management/captcha",
@@ -29,5 +39,4 @@ export const path = {
   createGroupUsers: "/users/create/group",
   searchUser: "/users/search",
   onlineUsers: "/users/online",
-
 };

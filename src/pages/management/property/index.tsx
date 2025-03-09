@@ -6,6 +6,9 @@ import { path } from '../../../config/path'
 import CardWithTabs from '../../../components/Common/CardWithTabs';
 import ConstructionType from '../../../components/Property/ConstructionType';
 import Usage from '../../../components/Property/Usage';
+import Range from '../../../components/Property/Range';
+import Profession from '../../../components/Property/Profession';
+import Guild from '../../../components/Property/Guild';
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -17,6 +20,18 @@ const Page = () => {
     {
       label: "کاربری",
       content: <Usage />
+    },
+    {
+      label: "صنف",
+      content: <Guild />
+    },
+    {
+      label: "شغل",
+      content: <Profession />
+    },
+    {
+      label: "محدوده املاک",
+      content: <Range />
     },
   ];
 

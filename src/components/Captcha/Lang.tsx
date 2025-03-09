@@ -1,11 +1,10 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
-import { ID, modulePermissions, TITLE } from '../Table/Columns';
+import { DataGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
+import { ID, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
-import { createModule, deleteModule } from "../../api/AccessTree/module";
 import { icons } from '../Icons/Icons';
 import { useEffect, useState } from "react";
 import { usePaginationState } from '../../hooks/usePaginationState';
-import { captchaLang, captchaLangPost, captchaMode } from "../../api/Captcha";
+import { captchaLang, captchaLangPost } from "../../api/Captcha";
 import { useQuery } from "react-query";
 export const useCaptchaLang = () => useQuery("captchalang", captchaLang);
 
@@ -25,13 +24,11 @@ const Lang = () => {
     const handlePageChange = (newPage: any) => {
         setPage(newPage?.page + 1);
     };
-
-
     useEffect(() => {
-        // setLoading(true)
+        setLoading(true)
         captchaLang().then(res => {
             if (res.data) {
-                console.log(res)
+                setLoading(false)
                 setRows(res.data)
             }
         }).catch(error =>
@@ -58,7 +55,7 @@ const Lang = () => {
             {/* {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteModule} id={selectId} />
             )} */}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 // handlePageSizeChange={handlePageSizeChange}
                 columns={[

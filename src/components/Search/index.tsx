@@ -1,7 +1,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface props {
     placeholder: string,
@@ -11,10 +11,14 @@ interface props {
 const SearchForm: FC<props> = ({ placeholder, showButton = true, classes }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSearch = () => {
+        localStorage.setItem('lastInputSearch', searchTerm);
         if (searchTerm.trim()) {
-            navigate(`/summary?query=${encodeURIComponent(searchTerm)}`);
+            navigate(`/summary?query=${searchTerm}`, {
+                state: { from: location.pathname }
+            });
         }
     };
     return (
@@ -26,10 +30,15 @@ const SearchForm: FC<props> = ({ placeholder, showButton = true, classes }) => {
                 className="bg-transparent w-full my-auto px-4 py-2 rounded-md text-black focus:outline-none"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        handleSearch();
+                    }
+                }}
             />
 
             {showButton && (
-                <div className="my-auto cursor-pointer" onClick={handleSearch}>
+                <div className="my-auto mx-1 cursor-pointer" onClick={handleSearch}>
                     <FontAwesomeIcon icon={faSearch} className="text-gray" />
                 </div>)}
         </div>

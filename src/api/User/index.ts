@@ -10,7 +10,7 @@ export const fetchUsers = async (params?: any) => {
   }
 };
 
-export const fetchUser = async (id: number) => {
+export const fetchUser = async (id: string) => {
   try {
     const response = await apiClient.get(`/user/info/${id}`);
     return response.data;

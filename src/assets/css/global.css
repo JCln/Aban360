@@ -80,7 +80,7 @@ button:focus,
 
 .material-checkbox + .material-label {
   position: relative;
-  padding-left: 30px; /* Space for the custom checkbox */
+  padding-left: 30px; 
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -94,7 +94,7 @@ button:focus,
   top: 0;
   width: 20px;
   height: 20px;
-  border: 2px solid #6200ee; /* Material Design primary color */
+  border: 2px solid #6200ee;
   border-radius: 4px;
   background-color: white;
   transition: all 0.2s ease;
@@ -102,7 +102,7 @@ button:focus,
 }
 
 .material-checkbox:checked + .material-label:before {
-  background-color: #6200ee; /* Color when checked */
+  background-color: #6200ee;
   border-color: #6200ee;
 }
 

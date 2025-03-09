@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
 import { ID, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { createModule} from "../../api/AccessTree/module";
@@ -12,13 +12,13 @@ export const useCaptchaMode = () => useQuery("captchaMode", captchaMode);
 
 const Type = () => {
     const [rows, setRows] = useState([])
-    const [loading, setLoading] = useState<boolean>(false);
-    const [open, setOpen] = useState(false)
-    const [formData, setFormData] = useState([])
-    const { pageSize, handlePageSizeChange } = usePaginationState(5);
-    const [page, setPage] = useState(1);
-    const [deleteDialog, setDeleteDialog] = useState(false);
-    const [selectId, setSelectId] = useState(0)
+    // const [loading, setLoading] = useState<boolean>(false);
+    // const [open, setOpen] = useState(false)
+    // const [formData, setFormData] = useState([])
+    // const { pageSize, handlePageSizeChange } = usePaginationState(5);
+    // const [page, setPage] = useState(1);
+    // const [deleteDialog, setDeleteDialog] = useState(false);
+    // const [selectId, setSelectId] = useState(0)
     const defaultVisibilityModel = {
         id: false,
     }
@@ -46,7 +46,7 @@ const Type = () => {
             apiFunction={createModule}
             />
            
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 // handlePageSizeChange={handlePageSizeChange}
                 columns={[

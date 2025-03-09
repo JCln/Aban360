@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
 import { endpointPermissions } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { icons } from '../Icons/Icons';
@@ -75,7 +75,7 @@ const Endpoint = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteEndppoint} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 columns={[
                     ...endpointPermissions,

@@ -1,20 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
-import { fetchLocation } from "../../api/summary";
+import  { FC } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import { icons } from "../../components/Icons/Icons";
 interface Props {
     items: any
 }
 const Breadcrumb: FC<Props> = ({ items }: any) => {
-    // console.log(items)
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     fetchLocation({ input: "123456" }).then(res => {
-    //         if (res && res.data) {
-    //             setBreadcrumb(res.data)
-    //         }
-    //     }).catch(error => console.log(error))
-    // }, [])
     return (
         <div className="breadcrumb bg-white rounded-lg mt-2 mb-4 grid grid-cols-12">
             <nav className="text-sm text-gray-600 p-3 col-span-11" aria-label="Breadcrumb">
@@ -24,7 +15,7 @@ const Breadcrumb: FC<Props> = ({ items }: any) => {
                             {index !== 0 && <span className="mx-2"> » </span>}
                             {item?.href ? (
                                 <Link
-                                    to={item?.href} // React Router
+                                    to={item?.href} 
                                     className="text-blue-500 hover:underline"
                                 >
                                     {item?.[index]}
@@ -38,7 +29,7 @@ const Breadcrumb: FC<Props> = ({ items }: any) => {
                             {index !== 0 && <span className="mx-2"> » </span>}
                             {item?.href ? (
                                 <Link
-                                    to={item?.href} // React Router
+                                    to={item?.href}
                                     className="text-blue-500 hover:underline"
                                 >
                                     {item?.label}

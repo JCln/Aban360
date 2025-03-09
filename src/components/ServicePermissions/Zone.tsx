@@ -1,25 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Management from "./management";
-import {fetchUserParams } from '../../api/Roles/index';
+import { fetchUserParams } from '../../api/Roles/index';
 
-const Zone = () => {
+interface Props {
+    accordionDataProp?: any
+    selectedItems?: [],
+    defaultZone?: any
+
+}
+const Zone: FC<Props> = ({ accordionDataProp, selectedItems, defaultZone }) => {
     const [accordionData, setAccordionData] = useState([])
     useEffect(() => {
-        fetchUserParams().then(res => {
-            console.log(res?.data?.locationTree)
-            let accordionData = res?.data?.locationTree?.cordinalDirectionValueKeys?.map(item => ({
+        if (!defaultZone) {
+            fetchUserParams().then(res => {
+                let accordionData = res?.data?.locationTree?.cordinalDirectionValueKeys?.map(item => ({
+                    id: item?.id,
+                    title: item?.title,
+                    arrayChild: item?.provinceValueKeys
+                }))
+                setAccordionData(accordionData)
+            }).catch(error => console.log(error))
+        }
+        else if (defaultZone?.locationTree?.cordinalDirectionValueKeys) {
+            let accordionData = defaultZone?.locationTree?.cordinalDirectionValueKeys?.map(item => ({
                 id: item?.id,
                 title: item?.title,
                 arrayChild: item?.provinceValueKeys
             }))
             setAccordionData(accordionData)
-        }).catch(error => console.log(error))
+        }
     }, [])
 
-   
     return (
         <div>
-            <Management accordionData={accordionData} checkIndex={"zoneId"}  />
+            <Management accordionData={accordionData} checkIndex={"zoneId"} selectedItems={selectedItems} />
         </div>)
 };
 export default Zone;

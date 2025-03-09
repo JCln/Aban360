@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
 import { municipalityColumns } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 // import { createModule, deleteModule } from "../../api/AccessTree/module";
@@ -80,7 +80,7 @@ const Municipality = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteMunicipality} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 columns={[
                     ...municipalityColumns,

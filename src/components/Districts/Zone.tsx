@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
 import { provinceColumns, TITLE, zoneColumns } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { icons } from '../Icons/Icons';
@@ -75,7 +75,7 @@ const Zone = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteZone} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 columns={[
                     ...zoneColumns,

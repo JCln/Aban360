@@ -4,7 +4,7 @@ import Loading from '../../../components/Common/Loading';
 import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../../components/Common/BreadCrumb';
 import ActionBar from '../../../components/Management/ActionBar';
-import { DatailGridComponent, useColumnVisibilityModel } from '../../../components/Common/DataGridComponent';
+import { DataGridComponent, useColumnVisibilityModel } from '../../../components/Common/DataGridComponent';
 import { icons } from '../../../components/Icons/Icons';
 import { deleteRole, fetchRoles, updateRole } from '../../../api/Roles';
 import { usePaginationState } from '../../../hooks/usePaginationState';
@@ -71,7 +71,7 @@ const Page = () => {
             <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteRole} id={selectId} />
           )}
 
-          <DatailGridComponent
+          <DataGridComponent
             key={"property"}
             // handlePageSizeChange={handlePageSizeChange}
             columns={[

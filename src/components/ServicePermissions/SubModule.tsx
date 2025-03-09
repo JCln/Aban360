@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
 import {  submodulePermissions } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { icons } from '../Icons/Icons';
@@ -76,7 +76,7 @@ const SubModule = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteSubModule} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 // handlePageSizeChange={handlePageSizeChange}
                 columns={[

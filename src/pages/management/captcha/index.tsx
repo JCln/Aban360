@@ -5,39 +5,26 @@ import Loading from '../../../components/Common/Loading';
 import { useNavigate } from 'react-router-dom';
 import CardWithTabs from '../../../components/Common/CardWithTabs';
 // import SearchForm from '../../../components/Search';
-// import { DatailGridComponent } from '../../../components/Common/DataGridComponent';
+// import { DataGridComponent } from '../../../components/Common/DataGridComponent';
 // import { GridColDef } from '@mui/x-data-grid';
 import Breadcrumb from '../../../components/Common/BreadCrumb';
 // import Management from '../../../components/ServicePermissions/management';
 import GenericForm from '../../../components/Form/GenericForm';
 import Type, { useCaptchaMode } from '../../../components/Captcha/Type';
 import Lang, { useCaptchaLang } from '../../../components/Captcha/Lang';
-import { captchaRead, captchaReadPost, captchaUpdate } from '../../../api/Captcha';
+import { captchaRead, captchaReadPost, captchaUpdate, createCaptcha, fetchCaptchaDictionary } from '../../../api/Captcha';
 import { toast } from 'react-toastify';
 import { path } from '../../../config/path';
+import { useQuery } from 'react-query';
+export const useCaptchaDictionary = () => useQuery("captchaDictionary", fetchCaptchaDictionary);
 
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [defaultData, setDefaultData] = useState<any>({})
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setLoading(true)
-    captchaRead().then(res => {
-      if (res?.data) {
-        setDefaultData(res?.data?.[0])
-        setLoading(false)
-      }
-    }).catch(error => {
-      setLoading(false)
-      console.log(error)
-    })
-
-  }, [])
-
+  // const navigate = useNavigate();
   const { data: modes, error, isLoading } = useCaptchaMode()
+  const { data: dictionaries, error: errordictionary, isLoading: isLoadingdictionary } = useCaptchaDictionary()
   const { data: langs, error: errorlang, isLoading: isLoadingLang } = useCaptchaLang()
-
   const _modes = Array.isArray(modes?.data)
     ? modes?.data?.map(item => ({
       id: item?.id,
@@ -53,12 +40,37 @@ const Page = () => {
       label: item?.title
     }))
     : [];
-  // console.log(defaultData, defaultData?.nonceKey)
+  const _dictionaries = Array.isArray(dictionaries?.data)
+    ? dictionaries?.data?.map(item => ({
+      id: item?.id,
+      value: item?.id,
+      label: item?.title
+    }))
+    : [];
+  const [captcha, setCaptcha] = useState(_dictionaries?.[0])
+
+  useEffect(() => {
+    setLoading(true)
+    captchaRead(captcha?.id).then(res => {
+      if (res?.data) {
+        setDefaultData(res?.data)
+        setLoading(false)
+      }
+    }).catch(error => {
+      setLoading(false)
+      console.log(error)
+    })
+
+  }, [captcha])
+  useEffect(() => {
+  }, [defaultData])
+
   const formConfig1 = [
     { name: 'id', type: 'input', inputType: "hidden", class: "hidden", value: defaultData?.id },
-    { name: 'title', type: 'input', inputType: "hidden", class: "hidden", value: "test" },
-    { name: 'captchaDisplayModeId', class: "col-span-3", label: 'حالت تصویر امنیتی', type: 'select', options: _modes ?? [], defaultValue: _modes?.find(v => v.id === defaultData?.captchaDisplayModeId) },
-    { name: 'captchaLanguageId', class: "col-span-3", label: 'زبان', type: 'select', options: _langs ?? [], defaultValue: _langs?.find(v => v.id === defaultData?.captchaDisplayModeId) },
+    { name: 'dictionary', class: "col-span-3", label: 'عنوان تصویر امنیتی', type: 'select', options: _dictionaries ?? [], defaultValue: captcha?.id },
+    { name: 'title', class: "col-span-3", label: 'عنوان ', type: 'input', value: captcha?.label ?? "" },
+    { name: 'displayModeEnumId', class: "col-span-3", label: 'حالت تصویر امنیتی', type: 'select', options: _modes ?? [], defaultValue: _modes?.find(v => v.id === defaultData?.displayModeEnumId) },
+    { name: 'languageId', class: "col-span-3", label: 'زبان', type: 'select', options: _langs ?? [], defaultValue: _langs?.find(v => v.id === defaultData?.languageId) },
     { name: 'fontName', class: "col-span-3", label: 'نوع فونت', type: 'input', value: defaultData?.fontName ?? "" },
     { name: 'fontSize', class: "col-span-3", label: ' فونت سایز', type: 'input', value: defaultData?.fontSize ?? "" },
     { name: 'rateLimit', class: "col-span-3", label: 'تعداد رفرش مجاز ', type: 'input', value: defaultData?.rateLimit ?? "" },
@@ -74,10 +86,11 @@ const Page = () => {
     { name: 'encryptionKey', class: "col-span-3", label: 'کلید رمزنگاری', type: 'input', value: defaultData?.encryptionKey },
     { name: 'validationMessage', class: "col-span-3", label: 'پیام اعتبار سنجی', type: 'input', value: defaultData?.validationMessage ?? "" },
     { name: 'validationMessageClass', class: "col-span-3", label: 'کلاس پیام اعتبار سنجی', type: 'input', value: defaultData?.validationMessageClass ?? "" },
-    { name: 'showThousandSeperator', class: "col-span-3", label: 'جدا کننده سه رقمی', type: 'checkbox', options: [{ value: defaultData?.showThousandSeperator, label: 'جدا کننده سه رقمی' , isSelected: defaultData?.showThousandSeperator }] },
+    { name: 'showThousandSeperator', class: "col-span-3", label: 'جدا کننده سه رقمی', type: 'checkbox', options: [{ value: defaultData?.showThousandSeperator, label: 'جدا کننده سه رقمی', isSelected: defaultData?.showThousandSeperator }] },
   ]
 
   const formConfig2 = [
+    { name: 'post_title', class: "col-span-3", label: 'عنوان', type: 'input' },
     { name: 'post_captchaDisplayModeId', class: "col-span-3", label: 'حالت تصویر امنیتی', type: 'select', options: _modes ?? [] },
     { name: 'post_captchaLanguageId', class: "col-span-3", label: 'زبان', type: 'select', options: _langs ?? [] },
     { name: 'post_fontName', class: "col-span-3", label: 'نوع فونت', type: 'input' },
@@ -92,25 +105,34 @@ const Page = () => {
     { name: 'post_max', class: "col-span-3", label: 'سقف', type: 'input' },
     { name: 'post_direction', class: "col-span-3", label: 'جهت نمایش', type: 'input' },
     { name: 'post_encryptionKey', class: "col-span-3", label: 'کلید رمزنگاری', type: 'input' },
-    { name: 'post_kkvalidationMessage', class: "col-span-3", label: 'پیام اعتبار سنجی', type: 'input' },
+    { name: 'post_validationMessage', class: "col-span-3", label: 'پیام اعتبار سنجی', type: 'input' },
     { name: 'post_validationMessageClass', class: "col-span-3", label: 'کلاس پیام اعتبار سنجی', type: 'input' },
-    { name: 'post_showThousandSeperator', class: "col-span-3", label: 'جدا کننده سه رقمی', type: 'checkbox', options: [{ value: defaultData?.showThousandSeperator, label: 'جدا کننده سه رقمی' }] },
+    { name: 'post_showThousandSeperator', class: "col-span-3 my-auto", label: 'جدا کننده سه رقمی', type: 'checkbox', options: [{ value: defaultData?.showThousandSeperator, label: 'جدا کننده سه رقمی' }] },
+    { name: 'post_isSelected', class: "col-span-3 my-auto", label: 'فعال', type: 'checkbox', options: [{ value: defaultData?.showThousandSeperator, label: 'فعال' }] },
   ]
-  // console.log(localStorage.getItem('authToken'))
   const onSubmitUpdate = (data) => {
     const newData = {};
     for (const key in data) {
+      if (!key || data[key] === null || data[key] === '') {
+        continue;
+      }
       if (data.hasOwnProperty(key)) {
-        if (typeof data[key] === 'object' && data[key] !== null && 'id' in data[key] && 'label' in data[key] && 'value' in data[key]) {
+        if (typeof data[key] === 'object' && data[key] !== null && 'id' in data[key]) {
           newData[key] = data[key].id;
+        } else if (key === 'id') {
+          newData[key] = Number(data[key]);
         } else {
           newData[key] = data[key];
         }
       }
+
       if (key === 'id' || key === 'rateLimit' || key === 'min' || key === '' || key === 'max')
         newData[key] = Number(data[key])
+      if (key === 'languageId')
+        newData['captchaLanguageId'] = data[key]?.id
+      if (key === 'displayModeEnumId')
+        newData['captchaDisplayModeId'] = data[key]?.id
     }
-    // console.log(newData)
     captchaUpdate(newData).then(res => {
       if (res.data) {
         toast(res.successMessage ?? "با موفقیت انجام شد", { type: 'success' })
@@ -122,17 +144,23 @@ const Page = () => {
       console.log(error)
     })
   }
-  // 
   const onSubmitRead = (data) => {
     const newData = {};
     for (const key in data) {
-      if (data.hasOwnProperty(key)) {
+      if (data.hasOwnProperty(key) && key.startsWith('post_')) {
         const newKey = key.replace(/^post_/, '');
-        newData[newKey] = data[key];
+        if (typeof data[key] === 'object' && data[key] !== null) {
+          if ('id' in data[key]) {
+            newData[newKey] = data[key].id;
+          }
+        }
+        else if (data[key] !== null && data[key] !== undefined) {
+          newData[newKey] = data[key];
+        }
       }
     }
-    captchaReadPost(newData).then(res => {
-      console.log(res)
+
+    createCaptcha(newData).then(res => {
       if (res.data) {
         toast(res.successMessage ?? "با موفقیت انجام شد", { type: 'success' })
         setInterval(function () {
@@ -147,7 +175,12 @@ const Page = () => {
   const tabs = [
     {
       label: "مدیریت",
-      content: <GenericForm formConfig={formConfig1} onSubmit={onSubmitUpdate} />
+      content: <>
+
+        <GenericForm formConfig={formConfig1} onSubmit={onSubmitUpdate}
+          handleChange={(val) => setCaptcha(val)} conditionName={'dictionary'}
+        />
+      </>
     },
     {
       label: "افزودن",

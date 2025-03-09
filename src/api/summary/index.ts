@@ -19,6 +19,15 @@ export const fetchSummary = async (params: { input: string }) => {
   }
 };
 
+export const fetchKardex = async (params:any) => {
+  try {
+    const response = await apiClient.post("/subscription/events-summary", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching captcha:", error);
+    throw error;
+  }
+};
 //Fetch Owner
 export const fetchOwnerInfo = async (params: { input: string }) => {
   try {
@@ -71,9 +80,44 @@ export const fetchSiphon = async (params: { input: string }) => {
   }
 };
 
+export const fetchSiphonSummary = async (params: { input: string }) => {
+  try {
+    const response = await apiClient.post("network/siphon", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching siphone:", error);
+    throw error;
+  }
+};
+
 export const fetchMeter = async (params: { input: string }) => {
   try {
     const response = await apiClient.post("realm/flat", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching meter:", error);
+    throw error;
+  }
+};
+
+export const fetchMainMeterSummary = async (params: { input: string }) => {
+  try {
+    const response = await apiClient.post(
+      "network/water-meter-consumption",
+      params
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching meter:", error);
+    throw error;
+  }
+};
+export const fetchMartyrMeterSummary = async (params: { input: string }) => {
+  try {
+    const response = await apiClient.post(
+      "network/water-meter-witness",
+      params
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching meter:", error);

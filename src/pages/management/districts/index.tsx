@@ -5,7 +5,7 @@ import { icons } from '../../../components/Icons/Icons';
 import { useNavigate } from 'react-router-dom';
 import CardWithTabs from '../../../components/Common/CardWithTabs';
 import SearchForm from '../../../components/Search';
-import { DatailGridComponent, useColumnVisibilityModel } from '../../../components/Common/DataGridComponent';
+import { DataGridComponent, useColumnVisibilityModel } from '../../../components/Common/DataGridComponent';
 import { GridColDef } from '@mui/x-data-grid';
 import Breadcrumb from '../../../components/Common/BreadCrumb';
 import ActionBar from '../../../components/Management/ActionBar';
@@ -19,7 +19,7 @@ import ReadingBound from '../../../components/Districts/ReadingBound';
 import ReadingBlock from '../../../components/Districts/ReadingBlock ';
 import Region from '../../../components/Districts/Region';
 import Municipality from '../../../components/Districts/Municipality';
-
+import {path} from '../../../config/path'
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Page = () => {
   const CountryContent = () => (
     <div style={{ height: 750, width: "100%" }}>
       <ActionBar />
-      <DatailGridComponent
+      <DataGridComponent
         key={"meter"}
         // handlePageSizeChange={handlePageSizeChange}
         columns={[
@@ -147,7 +147,7 @@ const Page = () => {
         ) : (
           ""
         )}
-        <Breadcrumb items={[{ href: "/managemen", label: "مدیریت" }, { label: "مدیریت نواحی" }]} />
+        <Breadcrumb items={[{ href: path.management, label: "مدیریت" }, { label: "مدیریت نواحی" }]} />
         <div className="rounded-xl">
           <CardWithTabs tabs={tabs} arrow={false} maxHeight='650px'/>
         </div>

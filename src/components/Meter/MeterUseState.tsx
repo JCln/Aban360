@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
 import { ID, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { icons } from '../Icons/Icons';
@@ -59,7 +59,7 @@ const MeterUseState = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteUseState} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={pageSize}
                 columns={[
                     ...[ID(10), TITLE(400),

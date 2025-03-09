@@ -5,10 +5,10 @@ import { icons } from '../../../components/Icons/Icons';
 import { useNavigate } from 'react-router-dom';
 import CardWithTabs from '../../../components/Common/CardWithTabs';
 import SearchForm from '../../../components/Search';
-import { DatailGridComponent } from '../../../components/Common/DataGridComponent';
+import { DataGridComponent } from '../../../components/Common/DataGridComponent';
 import { GridColDef } from '@mui/x-data-grid';
 import Breadcrumb from '../../../components/Common/BreadCrumb';
-
+import {path} from '../../../config/path'
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Page = () => {
         ) : (
           ""
         )}
-        <Breadcrumb items={[{ href: "/managemen", label: "مدیریت" }, { label: "تعاریف اولیه" }]} />
+        <Breadcrumb items={[{ href: path.management, label: "مدیریت" }, { label: "تعاریف اولیه" }]} />
         <div className="rounded-xl">
           <CardWithTabs tabs={tabs} arrow={false} />
         </div>

@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-export const usePaginationState = (initialPageSize: number = 20) => {
+export const usePaginationState = (initialPageSize: number = 5) => {
   const [pageSize, setPageSize] = useState(initialPageSize);
-
   const handlePageSizeChange = (value: number) => {
     try {
       setPageSize(value);

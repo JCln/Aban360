@@ -264,7 +264,7 @@ export function CustomPaginationDataGrid(props: any) {
 interface DatagridProps {
 
 }
-export const DatailGridComponent = (props: any) => {
+export const DataGridComponent = (props: any) => {
     const {
         handleSelect,
         height,
@@ -284,13 +284,10 @@ export const DatailGridComponent = (props: any) => {
     } = props;
 
     const gridRef = useRef<HTMLDivElement>(null);
-    let isSyncing = false;
-
+    // let isSyncing = false;
     useEffect(() => {
         const grid = gridRef.current;
-
         if (!grid) return;
-
         const observer = new MutationObserver(() => {
             const header = grid?.querySelector(".MuiDataGrid-columnHeaders");
             const body = grid?.querySelector(".MuiDataGrid-virtualScroller");
@@ -334,18 +331,22 @@ export const DatailGridComponent = (props: any) => {
             body.removeEventListener("scroll", handleBodyScroll);
         };
     };
-
+    const [paginationModel, setPaginationModel] = useState({
+        pageSize: pageSize,
+        page: 0,
+      });
 
     return (
         <div style={{ height: height, width: "100%", direction:"rtl" }} ref={gridRef}>
             <DataGrid
-                onPaginationModelChange={handlePageChange}
+                // onPaginationModelChange={handlePageChange}
+                onPaginationModelChange={setPaginationModel}
+                paginationModel={paginationModel}
                 rows={rows ?? []}
                 // rowHeight={200}
                 // autoHeight
                 // disableColumnMenu
-
-                paginationMode="server"
+                // paginationMode="server"
                 rowCount={totalRows}
                 columns={columns ?? []}
                 className="col"
@@ -353,24 +354,29 @@ export const DatailGridComponent = (props: any) => {
                 checkboxSelection={checkboxSelection ?? false}
                 localeText={faIRGrid}
                 columnBuffer={30}
-                initialState={{
-                    pagination: { paginationModel: { pageSize: pageSize ?? 5 } },
-                    // columns: {
-                    //   columnVisibilityModel,
-                    // },
-                }}
+                // initialState={{
+                //     pagination: { paginationModel: { pageSize: pageSize ?? 5 } },
+                //     // columns: {
+                //     //   columnVisibilityModel,
+                //     // },
+                // }}
                 columnVisibilityModel={columnVisibilityModel}
                 onColumnVisibilityModelChange={handleColumnVisibilityModelChange}
+                // slots={{
+                //     // pagination: (props) => (
+                //     //     <CustomPagination
+                //     //         {...props}
+                //     //         onRowsPerPageChange={handlePageSizeChange}
+                //     //     />
+                //     // ),
+                //     pagination: CustomPaginationDataGrid,
+                //     toolbar: toolbar === undefined ? GridToolbar : GridToolbar,
+                // }}
+                
                 slots={{
-                    pagination: (props) => (
-                        <CustomPagination
-                            {...props}
-                            onRowsPerPageChange={handlePageSizeChange}
-                        />
-                    ),
-
-                    toolbar: toolbar === undefined ? GridToolbar : GridToolbar,
-                }}
+                    pagination: CustomPaginationDataGrid,
+                    toolbar: GridToolbar
+                  }}
                 // slotProps={{ toolbar: { csvOptions: { encoding: "utf-8" } } }}
                 pageSizeOptions={pagination}
                 // columnVisibilityModel={columnVisibilityModel}

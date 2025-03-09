@@ -18,16 +18,25 @@ const EditComponent: FC<Props> = ({ formConfig, title, apiFunction, handleClose,
     const onSubmit = (data: any) => {
         const newData = {};
         for (const key in data) {
+            if (!key || data[key] === null || data[key] === '') {
+                continue;
+            }
+
             if (data.hasOwnProperty(key)) {
-                if (typeof data[key] === 'object' && data[key] !== null && 'id' in data[key] && 'label' in data[key] && 'value' in data[key]) {
+                if (typeof data[key] === 'object' && data[key] !== null && 'id' in data[key]) {
                     newData[key] = data[key].id;
-                } else if (key === 'id')
-                    newData[key] = Number(data[key])
-                else {
+                } else if (key === 'id') {
+                    newData[key] = Number(data[key]);
+                } else {
                     newData[key] = data[key];
                 }
             }
         }
+        Object.keys(newData).forEach(key => {
+            if (newData[key] === '' || newData[key] === null || newData[key] === undefined) {
+                delete newData[key];
+            }
+        })
         apiFunction(newData).then(res => {
             if (res?.data) {
                 toast(res.successMessage ?? "با موفقیت انجام شد", { type: 'success' })

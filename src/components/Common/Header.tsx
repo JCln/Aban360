@@ -2,10 +2,65 @@ import LogoImg from '../../assets/images/logo.png'
 import AvatarImg from '../../assets/images/avatar.png'
 import NotifIcon from '../../assets/images/icons/Notif.png'
 import SearchForm from "../Search";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { favoritToolbar, myToolbar, signout } from '../../api/auth/auth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHamburger } from '@fortawesome/free-solid-svg-icons';
+import Navbar from './Navbar';
+import { error } from 'console';
+
 const Header = () => {
-    // const [showSubmenu, setShowSubmenu] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+    const [userName, setUserName] = useState<string>('');
+    // const [userId, setUserId] = useState<string>('');
+
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+    const handleLogout = () => {
+        let token = localStorage.getItem('authToken');
+        signout({value: token}).then(res => {
+            localStorage.removeItem('authToken')
+            localStorage.removeItem('decodedToken')
+            window.location.href = '/'
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+    // useEffect(() => {
+    //     try {
+    //         const decodedToken = localStorage.getItem('decodedToken');
+    //         if (decodedToken) {
+    //             const parsed = JSON.parse(decodedToken);
+    //             const userId =
+    //                 parsed?.sub ||
+    //                 parsed?.['sub'] ||
+    //                 parsed?.['nameid'] ||
+    //                 parsed?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] ||
+    //                 parsed?.userId;
+    //             const name =
+    //                 parsed?.name ||
+    //                 parsed?.['name'] ||
+    //                 parsed?.['unique_name'] ||
+    //                 parsed?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] ||
+    //                 parsed?.username;
+    //             if (userId) {
+    //                 console.log(userId)
+    //                 // favoritToolbar(userId).then(res => {
+    //                 myToolbar().then(res => {
+    //                     console.log(res)
+    //                 }).catch(error => {
+    //                     console.log(error)
+    //                 })  
+    //             }
+    //             setUserName(name || '');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error parsing decoded token:', error);
+    //     }
+    // }, []);
 
     return (
         <header className="bg-white shadow-md w-full">
@@ -20,39 +75,37 @@ const Header = () => {
                         </div>
                     </div>
 
-                    {/* Info Button */}
-                    <div className="md:col-span-2 xl:col-span-1 hidden md:block bg-primary-blue py-2 text-white rounded-md text-center ">
-                        <span className='px-1'> اطلاعات پایه </span>
-                    </div>
-
                     {/* Navigation Menu - Always Below */}
-                    <nav className={`md:col-span-6 xl:col-span-5 w-full transition-all duration-300 ${showMenu ? "block" : "hidden"} md:flex`}>
-                        <ul className="flex flex-col md:flex-row justify-center md:justify-start space-y-3 md:space-y-0 md:space-x-reverse md:space-x-6">
-                            <li className="hover:underline text-gray"><a href="#">قبوض</a></li>
-                            <li className="hover:underline text-gray"><a href="#">قرائت</a></li>
-                            <li className="hover:underline text-gray"><a href="#">درخواست ها</a></li>
-                            <li className="hover:underline text-gray"><a href="#">وصول</a></li>
-                            <li className="hover:underline text-gray"><a href="#">گزارش ها</a></li>
-                            <li className="hover:underline text-gray"><a href="/management">مدیریت</a></li>
-                        </ul>
-                    </nav>
-                    <div className="xl:col-span-2 md:col-span-6 col-span-5">
+                    <Navbar />
+                    <div className="xl:col-span-3 md:col-span-6 col-span-5">
                         <SearchForm placeholder="شناسه قبض / ردیف" classes={"rounded-2xl"} />
                     </div>
 
                     {/* Notifications & Avatar */}
-                    <div className="flex items-center md:col-span-1  xl:col-span-1 gap-4">
+                    <div className="flex items-center md:col-span-1 xl:col-span-1 gap-4 relative">
                         <img src={NotifIcon} alt="Notifications" className="w-15 h-15" />
-                        <img src={AvatarImg} alt="Avatar" className="rounded-full w-13 h-13" />
+                        <img src={AvatarImg} alt="Avatar" className="rounded-full w-11 h-11 cursor-pointer"
+                            onClick={toggleDropdown}
+                        />
+                        {showDropdown && (
+                            <div className="absolute top-12 -left-14 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+                                <button
+                                    className="w-full text-right px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                    onClick={handleLogout}
+                                >
+                                    خروج
+                                </button>
+                            </div>
+                        )}
+                        {/* <span className="text-sm">{userName}</span> */}
                     </div>
-
                     {/* Mobile Menu Button */}
                     {/* <button
-            className="block md:hidden text-2xl p-2"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            <FiMenu />
-          </button> */}
+                        className="block md:hidden text-2xl p-2"
+                        onClick={() => setShowMenu(!showMenu)}
+                    >
+                        <FontAwesomeIcon icon={faHamburger} />
+                    </button> */}
                 </div>
 
 

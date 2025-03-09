@@ -1,27 +1,49 @@
 import React, { FC, useEffect, useState } from "react";
 import Management from "./management";
 import { fetchRoleParams } from '../../api/Roles/index';
+import { toast } from "react-toastify";
 
 interface Props {
     accordionDataProp?: any
-    selectedItems?:[]
+    selectedItems?: [],
+    defaultEndPoints?: any
 }
-const SelectEndpoints: FC<Props> = ({ accordionDataProp,selectedItems }) => {
+const SelectEndpoints: FC<Props> = ({ accordionDataProp, selectedItems, defaultEndPoints }) => {
     const [activeTab, setActiveTab] = useState(null);
     const [appValueKeys, setAppValueKeys] = useState([])
     const [moduleValueKeys, setModuleValueKeys] = useState([])
     const [accordionData, setAccordionData] = useState([])
     const [tabs, setTabs] = useState([])
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
-        fetchRoleParams().then(res => {
-            let app = res?.accessTreeValueKeyDto?.appValueKeys?.map(item => ({
-                id: item?.id,
-                title: item?.title,
-            }))
-            setAppValueKeys(res?.accessTreeValueKeyDto?.appValueKeys)
-            setTabs(app)
-        }).catch(error => console.log(error))
-    }, [])
+        if (!defaultEndPoints) {
+            setLoading(true);
+            fetchRoleParams()
+                .then(res => {
+                    if (res?.accessTreeValueKeyDto?.appValueKeys) {
+                        const app = res.accessTreeValueKeyDto.appValueKeys.map(item => ({
+                            id: item?.id || '',
+                            title: item?.title || '',
+                        }));
+                        setAppValueKeys(res.accessTreeValueKeyDto.appValueKeys);
+                        setTabs(app);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching role params:', error);
+                    toast('خطا در دریافت اطلاعات', { type: 'error' });
+                })
+                .finally(() => setLoading(false));
+        } else if (defaultEndPoints?.accessTree?.appValueKeys) {
+            const app = defaultEndPoints.accessTree.appValueKeys.map(item => ({
+                id: item?.id || '',
+                title: item?.title || '',
+            }));
+            setAppValueKeys(defaultEndPoints.accessTree.appValueKeys);
+            setTabs(app);
+        }
+    }, [defaultEndPoints]);
 
     useEffect(() => {
         let app = appValueKeys.find(v => v.id === activeTab)
@@ -36,7 +58,6 @@ const SelectEndpoints: FC<Props> = ({ accordionDataProp,selectedItems }) => {
         else
             setAccordionData(accordionData)
     }, [activeTab])
-
     return (
         <div>
             <div className="grid grid-cols-5 bg-white border-2 border-gray p-1 rounded">

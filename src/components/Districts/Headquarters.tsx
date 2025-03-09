@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
 import { headquartersColumns, ID, modulePermissions, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { createModule, deleteModule } from "../../api/AccessTree/module";
@@ -75,7 +75,7 @@ const Headquarters = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteHeadquarters} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 columns={[
                     ...headquartersColumns,

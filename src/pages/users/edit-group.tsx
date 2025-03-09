@@ -10,6 +10,7 @@ import { fetchRole, updateRole } from '../../api/Roles';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
 import SelectEndpoints from '../../components/ServicePermissions/SelectEndpoints';
+import { getSelectedCheckboxIds } from '../../config';
 type ParamType = {
   id?: string;
 };
@@ -31,6 +32,7 @@ const Page = () => {
   useEffect(() => {
     setLoading(true)
     fetchRole(Number(id)).then(res => {
+      console.log(res)
       if (res?.data) {
         setLoading(false)
         setDefaultClaims(res?.data?.roleInfo?.defaultClaims)
@@ -86,15 +88,7 @@ const Page = () => {
     );
   }
   const onSubmit = (data: any) => {
-    console.log(data)
-    const selectedEndpointIds = Object.keys(data)
-      .filter(key => key.startsWith('check_endpointId_'))
-      .reduce((acc, key) => {
-        if (data[key].length > 0) {
-          acc = acc.concat(data[key]);
-        }
-        return acc;
-      }, []);
+    const selectedEndpointIds = getSelectedCheckboxIds(data, 'check_endpointId_');
     updateRole({ id: id, name: data?.name, title: data?.title, defaultClaims: "", selectedEndpointIds: selectedEndpointIds, sensitiveInfo: data?.sensitiveInfo === true ? true : false }).then(res => {
       if (res.data) {
         toast(res.successMessage ?? "با موفقیت انجام شد", { type: 'success' })

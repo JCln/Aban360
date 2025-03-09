@@ -23,7 +23,7 @@ const Page = () => {
         ) : (
           ""
         )}
-        <Breadcrumb items={[{ href: "/managemen", label: "مدیریت" }, { label: "مدیریت کاربران" }]} />
+        <Breadcrumb items={[{ href: path.management, label: "مدیریت" }, { label: "مدیریت کاربران" }]} />
 
         <div className="bg-white p-5 rounded-xl p-5">
           <div className="grid grid-cols-4 bg-white mx-20 w-8/12 mx-auto">

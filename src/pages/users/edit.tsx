@@ -8,9 +8,10 @@ import SelectEndpoints from '../../components/ServicePermissions/SelectEndpoints
 import { path } from '../../config/path';
 import Roles from '../../components/ServicePermissions/Roles';
 import Zone from '../../components/ServicePermissions/Zone';
-import { createUser, fetchUser } from '../../api/User';
+import { fetchUser, updateUser } from '../../api/User';
 import { toast } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getSelectedCheckboxIds } from '../../config';
 type ParamType = {
   id?: string;
 };
@@ -26,13 +27,26 @@ const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<any>({})
   const { id } = useParams<ParamType>();
+  const [defaultData, setDefaultData] = useState<any>({})
 
-  // useEffect(() => {
-  //   // setLoading(true)
-  //   fetchUser(Number(id)).then(res => {
-  //   }).catch(error => console.log(error))
+  useEffect(() => {
+    setLoading(true)
+    fetchUser(id).then(res => {
+      if (res?.data) {
+        setLoading(false)
+        setUserInfo(res?.data?.userInfo)
+        setDefaultData(res?.data)
+      }
+      else {
+        setLoading(false)
+        toast("error", { type: 'error' })
+      }
+    }).catch(error => {
+      setLoading(false)
+      console.log(error)
+    })
 
-  // }, [])
+  }, [])
   const handleNext = () => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
@@ -60,19 +74,19 @@ const Page = () => {
         <div className='grid grid-cols-4  gap-4'>
           <div className="col-span-1 pb-4">
             <CustomInput name="fullName" placeholder="نام و نام خانوداگی" type="text"
-              borderStyle="bottom" inputClass="pr-15" defaultValue={userInfo?.fullName ?? ""} />
+              borderStyle="bottom" inputClass="pr-15" defaultValue={userInfo?.fullName} />
           </div>
           <div className="col-span-1 pb-4">
             <CustomInput name="username" placeholder="نام کاربری" type="text"
-              borderStyle="bottom" inputClass="pr-15" />
+              borderStyle="bottom" inputClass="pr-15" defaultValue={userInfo?.username} />
           </div>
           <div className="col-span-1 pb-4">
             <CustomInput name="displayName" placeholder="نام نمایشی" type="text"
-              borderStyle="bottom" inputClass="pr-15" />
+              borderStyle="bottom" inputClass="pr-15" defaultValue={userInfo?.displayName} />
           </div>
           <div className="col-span-1 pb-4">
             <CustomInput name="mobile" placeholder="شماره موبایل" type="text"
-              borderStyle="bottom" inputClass="pr-15" />
+              borderStyle="bottom" inputClass="pr-15" defaultValue={userInfo?.mobile} />
           </div>
           <div className="col-span-1 pb-4">
             <CustomInput type="password" name="password" placeholder="گذرواژه"
@@ -81,7 +95,15 @@ const Page = () => {
         </div>
         <div className='grid grid-cols-4  gap-4 my-5'>
           <div className="col-span-1 pb-4">
-            <CustomCheckbox name="" options={[{ value: "1", label: "کاربر فعال باشد؟" }]} />
+            <CustomCheckbox name="isLocked" options={[{ value: "1", label: "کاربر فعال باشد؟", isSelected: userInfo?.isLocked }]} />
+          </div>
+          <div className="col-span-1 pb-4">
+            <CustomCheckbox name="mobileConfirmed" options={[{ value: "1", label: "تایید موبایل", isSelected: userInfo?.mobileConfirmed }]} />
+          </div>
+          <div className="col-span-1 pb-4">
+            <CustomCheckbox name="hasTwoStepVerification"
+              selectAll={false}
+              options={[{ value: "1", label: "تایید دو مرحله ای ", isSelected: userInfo?.hasTwoStepVerification, }]} />
           </div>
         </div>
       </>
@@ -95,13 +117,38 @@ const Page = () => {
     )
   }
   const onSubmit = (data: any) => {
-   
+    const zoneId = getSelectedCheckboxIds(data, 'check_zoneId');
+    const endpointId = getSelectedCheckboxIds(data, 'check_endpointId_');
+    console.log(data)
+    updateUser({
+      id: id,
+      fullName: data?.fullName,
+      displayName: data?.displayName,
+      // username: data?.username,
+      // password: data?.password,
+      mobile: data?.mobile,
+      selectedEndpointIds: endpointId,
+      selectedZoneIds: zoneId,
+      selectedRoleIds: data?.roleIds,
+      // sensitiveInfo: data?.sensitiveInfo === "true" ? true : false
+    })
+      .then(res => {
+        if (res.data) {
+          toast(res.successMessage ?? "با موفقیت انجام شد", { type: 'success' })
+          navigate(path?.userManagement)
+        }
+      }).catch(error => {
+        toast("error", { type: 'error' })
+        console.log(error)
+      })
+
+    console.log(data)
   }
 
   return (
     <DefaultLayout>
       <div className="user-create-page container mx-auto">
-        <Breadcrumb items={[{ href: path.management, label: "مدیریت" }, { href: "/managemen/users", label: "مدیریت  کاربران" }, { label: "افزودن کاربر" }]} />
+        <Breadcrumb items={[{ href: path.management, label: "مدیریت" }, { href: path.userManagement, label: "مدیریت  کاربران" }, { label: "ویرایش کاربر" }]} />
         <FormProvider {...methods}>
           <form>
             <Box>
@@ -134,7 +181,7 @@ const Page = () => {
                   </Typography>
                   <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                     <Box sx={{ flex: '1 1 auto' }} />
-                    <Button onClick={handleReset}>Reset</Button>
+                    <Button onClick={handleReset}>بازیابی</Button>
                   </Box>
                 </React.Fragment>
               ) : (
@@ -142,9 +189,9 @@ const Page = () => {
                   <React.Fragment >
                     {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
                     {activeStep === 0 && <Step1 />}
-                    {activeStep === 1 && <Zone />}
-                    {activeStep === 2 && <SelectEndpoints />}
-                    {activeStep === 3 && <Roles />}
+                    {activeStep === 1 && <Zone defaultZone={defaultData} />}
+                    {activeStep === 2 && <SelectEndpoints defaultEndPoints={defaultData} />}
+                    {activeStep === 3 && <Roles defaultRoles={defaultData?.roleInfo} />}
                     {activeStep === 4 && <Step5 />}
 
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, width: "100%", justifyContent: "flex-end" }}>

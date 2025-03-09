@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
 import { ID, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { icons } from '../Icons/Icons';
@@ -9,6 +9,8 @@ import DeleteConfirmation from '../Common/DeletConfirmation';
 import { fetchSiphonDiameter, deleteSiphonDiameter, updateSiphonDiameter, createSiphonDiameter } from '../../api/Siphon/index';
 import { createUsage, deleteUsage, fetchUsage, updateUsage } from '../../api/Property/index';
 import { useProvince } from '../Districts/Municipality';
+import { useQuery } from "react-query";
+export const useUsage = () => useQuery("usage", fetchUsage);
 
 const Usage = () => {
     const [rows, setRows] = useState([])
@@ -73,7 +75,7 @@ const Usage = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteUsage} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={pageSize}
                 columns={[
                     ...[ID(10), TITLE(400),

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC, useEffect, useState } from 'react'
-import { DatailGridComponent } from '../Common/DataGridComponent';
+import { DataGridComponent } from '../Common/DataGridComponent';
 import { faAngleDoubleDown, faAngleDoubleUp, faCheck, faEdit, faEye, faHome, faMoneyBill, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ButtonComponent from '../Form/ButtonComponent';
 import { GridColDef, GridEventListener } from '@mui/x-data-grid';

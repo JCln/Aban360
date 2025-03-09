@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
   token: string | null;
@@ -15,6 +16,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedToken = localStorage.getItem('authToken');
@@ -23,14 +25,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    checkAuthAndRedirect();
+  }, []);
+
+  const checkAuthAndRedirect = () => {
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken) {
+      setToken(storedToken);
+      if (window.location.pathname === '/') {
+        navigate('/management');
+      }
+    }
+  };
+
   const login = (newToken: string) => {
     localStorage.setItem('authToken', newToken);
     setToken(newToken);
+    navigate('/management');
   };
 
   const logout = () => {
     localStorage.removeItem('authToken');
     setToken(null);
+    navigate('/');
   };
 
   const isAuthenticated = (): boolean => {

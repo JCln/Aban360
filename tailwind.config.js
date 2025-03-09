@@ -13,13 +13,17 @@ module.exports = {
         gray: "#D3D3D3",
         "light-gray": "var(--light-gray)",
         blue: "var(--blue)",
+        dark: "#333",
       },
       fontFamily: {
         ravi: ["RaviRegular", "RaviNumRegular"],
       },
       fontSize: {
-        tiny: ".875rem",
+        tiny: "0.5",
+        small: "0.625",
         base: "1rem",
+        10: "10px",
+        12: "12px",
         14: "14px",
         15: "15px",
         16: "16px",
@@ -46,7 +50,8 @@ module.exports = {
         "tab-disable": "#DDE1EE",
         "light-gray": "#C0C0C0",
         "light-blue": "#e7ecfb",
-        "red": "#730f12",
+        red: "#730f12",
+        "red-light": "#d7393e4d",
         blue: "#345ED4",
         black: {
           DEFAULT: "#1C2434",
@@ -67,6 +72,20 @@ module.exports = {
         300: "300px",
         400: "400px",
         500: "500px",
+      },
+      maxWidth: {
+        "8xl": "88rem", // 1408px
+        "9xl": "96rem", // 1536px
+        "10xl": "104rem", // 1664px
+        "11xl": "112rem", // 1792px
+        "12xl": "120rem", // 1920px
+        "15xl": "144rem", // 2304px
+        "20xl": "180rem", // 2880px
+      },
+      screens: {
+        "3xl": "1920px",
+        "4xl": "2560px",
+        "5xl": "3072px",
       },
       height: {
         130: "130px",

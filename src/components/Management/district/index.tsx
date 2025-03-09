@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { DatailGridComponent } from '../../Common/DataGridComponent'
+import { DataGridComponent } from '../../Common/DataGridComponent'
 
 interface Props {
 }
@@ -7,7 +7,7 @@ const Table: FC<Props> = () => {
 
     return (
         <>
-        <DatailGridComponent />
+        <DataGridComponent />
         </>
     )
 }

@@ -1,36 +1,42 @@
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormContext, Controller } from "react-hook-form";
 interface CaptchaInputProps {
-    //   fetchCaptcha: () => Promise<{ imageUrl: string; captchaId: string }>; // Fetch new captcha from server
-    fetchCaptcha: () => Promise<{ data: { dntCaptchaImgUrl: string, dntCaptchaId: string, dntCaptchaTokenValue: string, imageUrl:string, tokenText:string } }>;
-    onChange: (value: string, captchaId: string) => void; 
+    fetchCaptcha: () => Promise<{ data: { dntCaptchaImgUrl: string, dntCaptchaId: string, dntCaptchaTokenValue: string, imageUrl: string, tokenText: string } }>;
+    resetCaptchaRefresh?: () => void;
+    refreshCaptcha?: boolean
 }
 
-export const CaptchaInput: React.FC<CaptchaInputProps> = ({ fetchCaptcha, onChange }) => {
-    const { control,setValue } = useFormContext();
+export const CaptchaInput: React.FC<CaptchaInputProps> = ({ fetchCaptcha, refreshCaptcha, resetCaptchaRefresh }) => {
+    const { control, setValue } = useFormContext();
     const [captchaImage, setCaptchaImage] = useState<string>("");
     const [captchaId, setCaptchaId] = useState<string>("");
-    // const [inputValue, setInputValue] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (refreshCaptcha) {
+            loadCaptcha();
+            resetCaptchaRefresh();
+        }
+    }, [refreshCaptcha , resetCaptchaRefresh]);
+
     const loadCaptcha = async () => {
         setLoading(true);
         try {
             const response = await fetchCaptcha();
-            const {imageUrl, tokenText } = response.data;
+            const { imageUrl, tokenText } = response.data;
             setCaptchaImage(imageUrl);
-            setValue("captchaToken",tokenText );
+            setValue("captchaToken", tokenText);
             setValue("appVersion", "0.1");
             setValue("clientDateTime", `${Date.now()}`);
-            setCaptchaId(captchaId || ""); // Set captchaId if available
+            setCaptchaId(captchaId || "");
         } catch (error) {
             console.error("Failed to load captcha:", error);
         } finally {
             setLoading(false);
         }
     };
-    // Load captcha on component mount
     React.useEffect(() => {
         loadCaptcha();
     }, []);
@@ -39,7 +45,7 @@ export const CaptchaInput: React.FC<CaptchaInputProps> = ({ fetchCaptcha, onChan
         <div className="flex items-center w-full gap-2 captcha">
             <div className="w-8/12 m-0">
                 <Controller
-                    name="captchaInputText" 
+                    name="captchaInputText"
                     control={control}
                     rules={{ required: "کد در تصویر را وارد نمایید" }}
                     render={({ field, fieldState }) => (

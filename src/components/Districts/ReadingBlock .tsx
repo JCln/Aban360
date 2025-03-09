@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../../components/Common/DataGridComponent";
 import { ID, modulePermissions, provinceColumns, readingBlockColumns, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { createModule, deleteModule } from "../../api/AccessTree/module";
@@ -76,7 +76,7 @@ const ReadingBlock = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteReadingBlock} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 columns={[
                     ...readingBlockColumns,

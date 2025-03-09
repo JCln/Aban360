@@ -9,7 +9,12 @@ import Breadcrumb from '../../components/Common/BreadCrumb';
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
- 
+  useEffect(() => {
+    setLoading(true)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [])
   return (
     <DefaultLayout>
       <div className="management-page container mx-auto">
@@ -23,9 +28,17 @@ const Page = () => {
         <Breadcrumb items={[{ label: "مدیریت" }]} />
         <div className="bg-white p-5 rounded-xl p-5">
           <div className="grid xl:grid-cols-5 md:grid-cols-8 grid-cols-12 bg-white mx-20 w-8/12 mx-auto">
-            <div className="col-span-6 md:col-span-2 xl:col-span-1 mx-auto my-2 width-130 h-130 mb-16 cursor-pointer" onClick={() => navigate(path.basicManagement)}>
+            {/* <div className="col-span-6 md:col-span-2 xl:col-span-1 mx-auto my-2 width-130 h-130 mb-16 cursor-pointer" onClick={() => navigate(path.basicManagement)}>
               <img src={icons.settings} alt="" width={130} className='border-primary-blue border-2 p-4  width-full h-full rounded-2xl' />
               <div className='text-center text-16 my-3 text-primary-blue font-bold'>تعاریف اولیه</div>
+            </div> */}
+            <div className="col-span-6 md:col-span-2 xl:col-span-1 mx-auto my-2 width-130 h-130 mb-16 cursor-pointer" onClick={() => navigate(path.services)}>
+              <img src={icons.settings} alt="" width={130} className='border-primary-blue border-2 p-4  width-full h-full rounded-2xl' />
+              <div className='text-center text-16 my-3 text-primary-blue font-bold'>خدمات </div>
+            </div>
+            <div className="col-span-6 md:col-span-2 xl:col-span-1 mx-auto my-2 width-130 h-130 mb-16 cursor-pointer" onClick={() => navigate(path.invoice)}>
+              <img src={icons.settings} alt="" width={130} className='border-primary-blue border-2 p-4  width-full h-full rounded-2xl' />
+              <div className='text-center text-16 my-3 text-primary-blue font-bold'>صورتحساب </div>
             </div>
             <div className="col-span-6  md:col-span-2 xl:col-span-1 mx-auto my-2 width-130 h-130 mb-16  cursor-pointer" onClick={() => navigate(path.tarifsManagement)}>
               <img src={icons.tariffs} alt="" className='border-primary-blue border-2 p-4 rounded-2xl w-full h-full' />
@@ -70,6 +83,10 @@ const Page = () => {
             <div className="col-span-6 md:col-span-2 xl:col-span-1 mx-auto my-2 cursor-pointer width-130 h-130 mb-16" onClick={() => navigate(path.siphonManagement)}>
               <img src={icons.syphoneBlue} alt="" width={150} className='border-primary-blue border-2 h-full  w-full  p-4 rounded-2xl' />
               <div className='text-center my-3 text-16 text-primary-blue font-bold'>   سیفون   </div>
+            </div>
+            <div className="col-span-6 md:col-span-2 xl:col-span-1 mx-auto my-2 cursor-pointer width-130 h-130 mb-16" onClick={() => navigate(path.readingManagement)}>
+              <img src={icons.reading} alt="" width={150} className='border-primary-blue border-2 h-full  w-full  p-4 rounded-2xl' />
+              <div className='text-center my-3 text-16 text-primary-blue font-bold'>    مدیریت قرائت  </div>
             </div>
           </div>
         </div>

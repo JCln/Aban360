@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
 import { ID, ISACTIVE, ISMENU, LOGICORDER, modulePermissions, STYLE, TITLE } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { icons } from '../Icons/Icons';
@@ -63,7 +63,7 @@ const App = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteApp} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={pageSize}
                 // handlePageSizeChange={handlePageSizeChange}
                 columns={[

@@ -1,4 +1,4 @@
-import { DatailGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
+import { DataGridComponent, useColumnVisibilityModel } from "../Common/DataGridComponent";
 import { modulePermissions } from '../Table/Columns';
 import ActionBar from '../Management/ActionBar';
 import { createModule, deleteModule, updateModule } from "../../api/AccessTree/module";
@@ -33,7 +33,7 @@ const ModuleContent = () => {
         setLoading(true)
         fetchAllModule().then(res => {
             if (res?.data) {
-                console.log(res)
+                // console.log(res)
                 setRows(res.data)
                 setLoading(false)
             }
@@ -68,7 +68,7 @@ const ModuleContent = () => {
             {deleteDialog && selectId && (
                 <DeleteConfirmation show={deleteDialog} handleClose={() => setDeleteDialog(false)} apiFunction={deleteModule} id={selectId} />
             )}
-            <DatailGridComponent
+            <DataGridComponent
                 key={"modulePermission"}
                 // handlePageSizeChange={handlePageSizeChange}
                 columns={[
@@ -93,7 +93,7 @@ const ModuleContent = () => {
                                     { name: 'isActive', class: "col-span-12 xl:col-span-4", label: 'فعال', type: 'checkbox', options: [{ value: true , label: 'فعال'}] },])
                             };
                             return (
-                                <div className="max-auto w-full text-center"
+                                <div className="max-auto w-full cursor-pointer text-center"
                                     onClick={onClick}
                                 >
                                     <img src={icons?.editIcon} alt="" />
@@ -114,7 +114,7 @@ const ModuleContent = () => {
                                 setSelectId(cellValues?.id)
                             };
                             return (
-                                <div className="max-auto w-100 text-center"
+                                <div className="max-auto cursor-pointer w-100 text-center"
                                     onClick={onClick}
                                 >
                                     <img src={icons?.trashIcon} alt="" />

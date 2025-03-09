@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Chart } from 'chart.js';
 
+Chart.register(ChartDataLabels);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

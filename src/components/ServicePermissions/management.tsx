@@ -12,9 +12,9 @@ interface DataItem {
 interface Props {
   accordionData: DataItem[];
   checkIndex?: string
-  selectedItems?:any
+  selectedItems?: any
 }
-const ManagementAccordion: FC<Props> = ({ accordionData,checkIndex, selectedItems }) => {
+const ManagementAccordion: FC<Props> = ({ accordionData, checkIndex, selectedItems }) => {
   const renderAccordion = (items: DataItem[], path: string = "") => {
     return items?.map((item, index) => {
 
@@ -34,7 +34,7 @@ const ManagementAccordion: FC<Props> = ({ accordionData,checkIndex, selectedItem
               title={item.title}
               content={
                 <div className="bg-meta-9 rounded-tl-2xl rounded-tr-2xl p-2">
-                  <div className="p-2">{item.title}</div>
+                  {/* <div className="p-2">{item.title}</div> */}
 
                   {/* If last array, render checkboxes once */}
                   {lastArrayKey ? renderCheckboxes(item[lastArrayKey], currentPath) : null}
@@ -56,13 +56,12 @@ const ManagementAccordion: FC<Props> = ({ accordionData,checkIndex, selectedItem
 
   const renderCheckboxes = (items: DataItem[], key: string) => {
     if (!Array.isArray(items) || items.length === 0) return null;
-    const isSelected = (optionId: string | number) => selectedItems?.includes(Number(optionId));
-
     const options = items.map((option) => ({
       id: option.id.toString(),
       value: option.id.toString(),
       label: option.title,
-      isSelected:isSelected(option.id) 
+      isSelected: option?.isSelected,
+      name: `check_${checkIndex}_${key}_${option.id}`
     }));
 
     return (

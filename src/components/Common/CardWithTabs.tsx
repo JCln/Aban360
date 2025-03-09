@@ -10,9 +10,9 @@ interface Tab {
 }
 
 interface CardWithTabsProps {
-    tabs?: Tab[]; // Array of tabs
-    tabPosition?: "top"; // Tab alignment (now only supports "top")
-    button?: ReactNode; // Optional button
+    tabs?: Tab[]; 
+    tabPosition?: "top"; 
+    button?: ReactNode;
     content?: ReactNode
     maxHeight?: string
     arrow?: boolean
@@ -37,18 +37,10 @@ const CardWithTabs: React.FC<CardWithTabsProps> = ({
     const getMaxHeight = () => {
         return isCollapsed ? (maxHeight ?? "170px") : `${contentRef.current?.scrollHeight}px`;
     };
-    // useEffect(() => {
-    //     // Load content only for the active tab
-    //     const newTabContents = [...tabContents];
-    //     newTabContents[activeTab] = tabs[activeTab]?.content;
-    //     setTabContents(newTabContents);
-    // }, [activeTab, content])
-
+ 
     return (
         <div className={`my-5 table-card ${tabs ? 'with-tabs' : ''}`}>
-            {/* Header: Button on left, Tabs on right */}
             <div className="flex justify-between items-center">
-                {/* Right-side Tabs */}
                 <div className="flex space-x-1">
                     {tabs?.map((tab, index) => (
                         <button

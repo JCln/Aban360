@@ -24,7 +24,6 @@ const ModalComponent: FC<Props> = ({ title, children, show, handleClose, classWi
         boxShadow: 24,
         p: 4,
     };
-    console.log(show)
     return (
         <Modal
             open={show}
@@ -37,11 +36,13 @@ const ModalComponent: FC<Props> = ({ title, children, show, handleClose, classWi
                     <button className="btn text-gray font-18" onClick={handleClose}>
                         <FontAwesomeIcon icon={faClose} />
                     </button>
-                    <Typography className="modal-modal-title  mx-auto text-center dashboard__title-fat" variant="h6" component="h2">
-                        {title}
+                    <Typography className="modal-modal-title mb-5  mx-auto text-center" variant="h6" component="h2">
+                        <div className="my-5">
+                            {title}
+                        </div>
                     </Typography>
                 </div>
-                <div className={`modal-body  w-full text-right min-height-${minHeight} max-height-${maxHeight}`}  dir={"rtl"}>
+                <div className={`modal-body  w-full text-right min-height-${minHeight} max-height-${maxHeight}`} dir={"rtl"}>
                     {children}
                     <Typography className="modal-modal-description" sx={{ mt: 2 }}>
                     </Typography>
