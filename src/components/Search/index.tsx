@@ -12,7 +12,6 @@ const SearchForm: FC<props> = ({ placeholder, showButton = true, classes }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
-
     const handleSearch = () => {
         localStorage.setItem('lastInputSearch', searchTerm);
         if (searchTerm.trim()) {

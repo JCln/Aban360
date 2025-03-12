@@ -23,10 +23,10 @@ const Page = () => {
       if (res?.data && res.success === true) {
         let accessToken = res?.data?.accessToken
         // Decode the JWT token
-        const decodedToken = jwtDecode(accessToken);
+        // const decodedToken = jwtDecode(accessToken);
         login(accessToken)
         localStorage.setItem('authToken', accessToken)
-        localStorage.setItem('decodedToken', JSON.stringify(decodedToken))
+        // localStorage.setItem('decodedToken', JSON.stringify(decodedToken))
         navigate('/dashboard')
         setShowLoader(false)
       }

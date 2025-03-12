@@ -2,23 +2,27 @@ import DefaultLayout from "../../../components/Layouts/DefaultLayout";
 import Breadcrumb from '../../../components/Common/BreadCrumb';
 import { path } from '../../../config/path'
 import CardWithTabs from '../../../components/Common/CardWithTabs';
+import Default from "../../../components/Reading/Default";
+import State from "../../../components/Reading/Sate";
+import Period from "../../../components/Reading/Period";
+import Type from "../../../components/Reading/Type";
 const Page = () => {
   const tabs = [
     {
       label: "تنظیمات پیشفرض",
-      content: ""
+      content: <Default />
     },
     {
       label: "وضعیت کنتور",
-      content: ""
+      content: <State />
     },
     {
       label: "نوع دوره قرائت",
-      content: ""
+      content: <Type />
     },
     {
       label: "دوره قرائت",
-      content: ""
+      content: <Period />
     },
   ];
 

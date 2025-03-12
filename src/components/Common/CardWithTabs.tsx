@@ -25,8 +25,8 @@ const CardWithTabs: React.FC<CardWithTabsProps> = ({
     maxHeight,
     arrow = true
 }) => {
-    const [activeTab, setActiveTab] = useState<number>(0); // Track the active tab
-    const [tabContents, setTabContents] = useState<Array<any>>([])
+    const [activeTab, setActiveTab] = useState<number>(0);
+    // const [tabContents, setTabContents] = useState<Array<any>>([])
     const [isCollapsed, setIsCollapsed] = useState(true);
     const contentRef = useRef<HTMLDivElement | null>(null);
 

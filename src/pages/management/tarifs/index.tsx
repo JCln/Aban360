@@ -9,6 +9,7 @@ import { DataGridComponent } from '../../../components/Common/DataGridComponent'
 import { GridColDef } from '@mui/x-data-grid';
 import Breadcrumb from '../../../components/Common/BreadCrumb';
 import { path } from '../../../config/path'
+import Calcualte from '../../../components/Tariff/Calculate';
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   // const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Page = () => {
   const tabs = [
     {
       label: "فرمول های تعرفه",
-      content: ""
+      content: <Calcualte/>
     },
     {
       label: "ضرایب تعرفه",

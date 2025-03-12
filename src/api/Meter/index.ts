@@ -278,3 +278,43 @@ export const deleteWaterMeterTagDefinition = async (params?: any) => {
   }
 };
 
+export const fetchSubscriptionType = async (params?: any) => {
+  try {
+    const response = await apiClient.get("/subscription-type/all", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+
+export const createSubscriptionType = async (params?: any) => {
+  try {
+    const response = await apiClient.post("/subscription-type/create", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error post data:", error);
+    throw error;
+  }
+};
+
+export const updateSubscriptionType = async (params?: any) => {
+  try {
+    const response = await apiClient.post("/subscription-type/update", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error update data:", error);
+    throw error;
+  }
+};
+export const deleteSubscriptionType = async (params?: any) => {
+  try {
+    const response = await apiClient.post("/subscription-type/delete", params);
+    return response.data;
+  } catch (error) {
+    console.error("Error delete data:", error);
+    throw error;
+  }
+};
+
+

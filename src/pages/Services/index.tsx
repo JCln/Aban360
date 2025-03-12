@@ -8,14 +8,29 @@ import { path } from '../../config/path';
 import Offering from '../../components/Services/Offering';
 import OfferingGroup from '../../components/Services/OfferingGroup';
 import OfferingUnit from '../../components/Services/OfferingUnit';
+import Service from '../../components/Services/Service';
+import OfferingSerivce from '../../components/Services/OfferingSerivce';
+import Type from '../../components/Services/Type';
 const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
+
   useEffect(() => {
-    // setLoading()
-  })
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [])
 
   const tabs = [
+    {
+      label: "گروه خدمات",
+      content: <Type />
+    },
+    {
+      label: "خدمات",
+      content: <Service />
+    },
     {
       label: "واحد اقلام ",
       content: <OfferingUnit />
@@ -27,6 +42,10 @@ const Page = () => {
     {
       label: "اقلام ",
       content: <Offering />
+    },
+    {
+      label: "خدمات اقلام ",
+      content: <OfferingSerivce />
     },
   ];
 

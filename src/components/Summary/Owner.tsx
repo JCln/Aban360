@@ -23,15 +23,13 @@ const Owner: FC<OwnerProps> = ({ input }) => {
     ];
 
     return (
-        <>
-            <CardWithTabs
-                tabs={tabs}
-                maxHeight='250px'
-                button={<ButtonComponent
-                    icon={faPlus}
-                    color={'primary-blue'}
-                    title="ثبت مالک جدید" />} />
-        </>
+        <CardWithTabs
+            tabs={tabs}
+            maxHeight='250px'
+            button={<ButtonComponent
+                icon={faPlus}
+                color={'primary-blue'}
+                title="ثبت مالک جدید" />} />
     )
 }
 

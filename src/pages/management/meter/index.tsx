@@ -9,6 +9,7 @@ import MeterDiameter from '../../../components/Meter/MeterDiameter';
 import MeterUseType from '../../../components/Meter/MeterUseType';
 import MeterUseState from '../../../components/Meter/MeterUseState';
 import WaterMeterTagDefinition from '../../../components/Meter/WaterMeterTagDefinition';
+import SubscriptionType from "../../../components/Meter/SubscriptionType";
 const Page = () => {
   const tabs = [
     {
@@ -39,6 +40,10 @@ const Page = () => {
     {
       label: "برچسب",
       content: <WaterMeterTagDefinition/>
+    },
+    {
+      label: "نوع اشتراک",
+      content: <SubscriptionType/>
     },
   ];
 

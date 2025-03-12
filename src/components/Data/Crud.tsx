@@ -4,49 +4,33 @@ import { FC, useEffect, useState } from "react";
 import { usePaginationState } from '../../hooks/usePaginationState';
 import EditComponent from '../Form/EditComponent';
 import DeleteConfirmation from '../Common/DeletConfirmation';
+import { icons } from '../Icons/Icons';
+import { CrudProps } from "../../types";
 
-interface CrudProps {
-    fetchFunction?: (data?: any) => Promise<any>;
-    createFunction?: (data?: any) => Promise<any>;
-    updateFunction?: (data?: any) => Promise<any>;
-    deleteFunction?: (data?: any) => Promise<any>;
-    formConfig: object[]
-    formData: object[]
-    title: string,
-    columns: any
-    open:boolean
-    handleClose: () => void,
-    handleEditClick: (cellValues: any) => void,
-    handleDeleteClick: (cellValues: any) => void
-    hideColumns?: any
-}
-
-const Crud: FC<CrudProps> = ({ handleClose, hideColumns, formData,open, fetchFunction, createFunction, updateFunction, deleteFunction, formConfig, title, columns, handleEditClick, handleDeleteClick }) => {
-    const [rows, setRows] = useState([])
+const Crud: FC<CrudProps> = ({ handleClose, hideColumns, formData, open, fetchFunction, createFunction, updateFunction, deleteFunction, formConfig, title, columns, handleEditClick }) => {
+    const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState<boolean>(false);
     const { pageSize, handlePageSizeChange } = usePaginationState(5);
     const [page, setPage] = useState(1);
     const [deleteDialog, setDeleteDialog] = useState(false);
-    const [selectId, setSelectId] = useState(0)
-    const defaultVisibilityModel = hideColumns
+    const [selectId, setSelectId] = useState(0);
+    const defaultVisibilityModel = hideColumns;
     const { columnVisibilityModel, handleColumnVisibilityChange } = useColumnVisibilityModel(defaultVisibilityModel);
     const handlePageChange = (newPage: any) => {
         setPage(newPage?.page + 1);
     };
-
-
     useEffect(() => {
-        setLoading(true)
+        setLoading(true);
         fetchFunction().then(res => {
             if (res?.data) {
-                setRows(res.data)
-                setLoading(false)
+                setRows(res.data);
+                setLoading(false);
             }
         }).catch(error => {
-            setLoading(false)
-            console.log(error)
-        })
-    }, [])
+            setLoading(false);
+            console.log(error);
+        });
+    }, []);
     return (
         <div style={{ height: 750, width: "100%" }}>
             <ActionBar
@@ -66,21 +50,43 @@ const Crud: FC<CrudProps> = ({ handleClose, hideColumns, formData,open, fetchFun
             )}
             <DataGridComponent
                 key={pageSize}
-                columns={columns}
+                columns={[...columns,
+                {
+
+                    field: "delete",
+                    headerName: "",
+                    width: 50,
+                    align: "center",
+                    headerAlign: "center",
+                    renderCell: (cellValues: any) => {
+                        const onClick = (e: any) => {
+                            setDeleteDialog(true)
+                            setSelectId(cellValues?.id)
+                        };
+                        return (
+                            <div className="max-auto cursor-pointer w-100 text-center"
+                                onClick={onClick}
+                            >
+                                <img src={icons?.trashIcon} alt="" />
+                            </div>
+
+                        );
+                    },
+                },
+                ]}
                 rows={rows ?? []}
                 totalRows={rows?.length}
-                height={417}
+                height={550}
                 pageSize={pageSize}
-                pagination={[5, 10, 15]}
+                pagination={[5, 25, 50]}
                 checkboxSelection={false}
                 columnVisibilityModel={columnVisibilityModel}
                 handlePageSizeChange={handlePageSizeChange}
                 handlePageChange={handlePageChange}
                 handleColumnVisibilityModelChange={handleColumnVisibilityChange}
             />
-
         </div>
-    )
-}
+    );
+};
 
-export default Crud
+export default Crud;

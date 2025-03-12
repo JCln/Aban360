@@ -27,11 +27,11 @@ export default function DefaultLayout({
     const { isAuthenticated, token } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if ((!isAuthenticated())) {
-            navigate('/');
-        }
-    }, [navigate, token]);
+    // useEffect(() => {
+    //     if ((!isAuthenticated())) {
+    //         navigate('/');
+    //     }
+    // }, [navigate, token]);
 
     return (
         <AuthProvider>
